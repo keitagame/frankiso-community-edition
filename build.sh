@@ -19,12 +19,36 @@ else
     echo "設定ファイル $SETTING_FILE が見つかりません" >&2
     exit 1
 fi
-# ===== 設定 =====
-WORKDIR="$PWD/work"
-ISO_ROOT="$WORKDIR/iso"
-AIROOTFS="$WORKDIR/airootfs"
-OUTPUT="$PWD/out"
-ARCH="x86_64"
+
+# デフォルト値
+ENVIRONMENT="default"
+
+# オプション解析
+while getopts "e:" opt; do
+  case "$opt" in
+    e) ENVIRONMENT="$OPTARG" ;;
+    \?) 
+      echo "使い方: $0 [-e environment]"
+      exit 1
+      ;;
+  esac
+done
+
+# 処理分岐
+case "$ENVIRONMENT" in
+  minimal)
+    echo "=== Minimal ビルドを開始 ==="
+    
+    ;;
+  full)
+    echo "=== Full ビルドを開始 ==="
+    # Full 用のビルド処理
+    ;;
+  *)
+    echo "不明な環境: $ENVIRONMENT"
+    exit 1
+    ;;
+esac
 
 # ===== 前準備 =====
 echo "[*] 作業ディレクトリを初期化..."
