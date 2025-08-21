@@ -12,6 +12,13 @@ else
     echo "設定ファイル $CONFIG_FILE が見つかりません" >&2
     exit 1
 fi
+BOOT="./boot/config"
+if [[ -f "$BOOT" ]]; then
+    source "$BOOT"
+else
+    echo "設定ファイル $CONFIG_FILE が見つかりません" >&2
+    exit 1
+fi
 SETTING_FILE="./settings.conf"
 if [[ -f "$SETTING_FILE" ]]; then
     source "$SETTING_FILE"
