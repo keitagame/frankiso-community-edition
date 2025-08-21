@@ -76,7 +76,7 @@ mkfs.ext4 "$AIROOTFS_IMG"
 mkdir -p "$AIROOTFS_MOUNT"
 mount -o loop "$AIROOTFS_IMG" "$AIROOTFS_MOUNT"
 AIROOTFS="$AIROOTFS_MOUNT"
-pacstrap  "$AIROOTFS" $PACKAGES
+pacstrap  "$AIROOTFS" $PACKAGE
 
 # ===== 設定ファイル追加 =====
 
