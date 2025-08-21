@@ -12,7 +12,13 @@ else
     echo "設定ファイル $CONFIG_FILE が見つかりません" >&2
     exit 1
 fi
-
+SETTING_FILE="./setting.conf"
+if [[ -f "$SETTING_FILE" ]]; then
+    source "$SETTING_FILE"
+else
+    echo "設定ファイル $SETTING_FILE が見つかりません" >&2
+    exit 1
+fi
 # ===== 設定 =====
 WORKDIR="$PWD/work"
 ISO_ROOT="$WORKDIR/iso"
