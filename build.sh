@@ -38,7 +38,13 @@ done
 case "$ENVIRONMENT" in
   minimal)
     echo "=== Minimal ビルドを開始 ==="
-    
+      PACKAGES=".edition/minimal/PACKAGES"
+      if [[ -f "$PACKAGES" ]]; then
+        source "$PACKAGES"
+      else
+        echo "設定ファイル $PACKAGES が見つかりません" >&2
+      exit 1
+      fi
     ;;
   full)
     echo "=== Full ビルドを開始 ==="
@@ -70,7 +76,7 @@ mkfs.ext4 "$AIROOTFS_IMG"
 mkdir -p "$AIROOTFS_MOUNT"
 mount -o loop "$AIROOTFS_IMG" "$AIROOTFS_MOUNT"
 AIROOTFS="$AIROOTFS_MOUNT"
-pacstrap  "$AIROOTFS" base linux linux-firmware vim networkmanager archiso mkinitcpio-archiso
+pacstrap  "$AIROOTFS" $PACKAGES
 
 # ===== 設定ファイル追加 =====
 
