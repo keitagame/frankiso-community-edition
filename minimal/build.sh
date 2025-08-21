@@ -4,7 +4,14 @@
 # 依存: archiso, yq (v4), git（relengコピーが必要な場合）
 set -euo pipefail
 
-
+# 設定ファイルを読み込み
+CONFIG_FILE="./ISOCONFIG"
+if [[ -f "$CONFIG_FILE" ]]; then
+    source "$CONFIG_FILE"
+else
+    echo "設定ファイル $CONFIG_FILE が見つかりません" >&2
+    exit 1
+fi
 
 # ===== 設定 =====
 WORKDIR="$PWD/work"
