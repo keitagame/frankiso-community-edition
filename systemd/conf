@@ -1,0 +1,4 @@
+default  frank
+timeout  3
+console-mode max
+editor   no
