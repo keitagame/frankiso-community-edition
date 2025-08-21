@@ -20,8 +20,7 @@ else
     exit 1
 fi
 
-# デフォルト値
-ENVIRONMENT="default"
+
 
 # オプション解析
 while getopts "e:" opt; do
@@ -39,7 +38,7 @@ case "$ENVIRONMENT" in
   minimal)
     echo "=== Minimal ビルドを開始 ==="
       PACKAGES="./edition/minimal/packages"
-      SETUP="./edition/minimal/set.sh"
+      SETUP="./edition/minimal/setup"
       if [[ -f "$PACKAGES" ]]; then
         source "$PACKAGES"
       else
@@ -56,7 +55,13 @@ case "$ENVIRONMENT" in
     exit 1
     ;;
 esac
-
+_STFILE=$SETUP
+if [[ -f "$ST_FILE" ]]; then
+    source "$ST_FILE"
+else
+    echo "設定ファイル $SETTING_FILE が見つかりません" >&2
+    exit 1
+fi
 # ===== 前準備 =====
 echo "[*] 作業ディレクトリを初期化..."
 
@@ -80,7 +85,7 @@ AIROOTFS="$AIROOTFS_MOUNT"
 pacstrap  "$AIROOTFS" $PACKAGE
 
 # ===== 設定ファイル追加 =====
-arch-chroot "$AIROOTFS" source $SETUP
+arch-chroot "$AIROOTFS" pacman -S $INSTALL
 
 
 mkdir -p "$ISO_ROOT/isolinux"
