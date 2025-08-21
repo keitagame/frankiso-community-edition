@@ -17,9 +17,6 @@ fi
 WORKDIR="$PWD/work"
 ISO_ROOT="$WORKDIR/iso"
 AIROOTFS="$WORKDIR/airootfs"
-ISO_NAME="frankos"
-ISO_LABEL="FRANK_LIVE"
-ISO_VERSION="$(date +%Y.%m.%d)"
 OUTPUT="$PWD/out"
 ARCH="x86_64"
 
