@@ -20,7 +20,13 @@ else
     exit 1
 fi
 
-
+USER_FILE="./user/root"
+if [[ -f "$USER_FILE" ]]; then
+    source "$USER_FILE"
+else
+    echo "設定ファイル $SETTING_FILE が見つかりません" >&2
+    exit 1
+fi
 
 # オプション解析
 while getopts "e:" opt; do
@@ -73,6 +79,7 @@ echo "[*] ベースシステムを pacstrap でインストール..."
 AIROOTFS_IMG="$WORKDIR/airootfs.img"
 AIROOTFS_MOUNT="$WORKDIR/airootfs"
 
+
 # 8GB の空き容量を確保
 truncate -s 8G "$AIROOTFS_IMG"
 mkfs.ext4 "$AIROOTFS_IMG"
@@ -89,6 +96,13 @@ cp /etc/pacman.d/mirrorlist "$AIROOTFS/etc/pacman.d/"
 # ===== 設定ファイル追加 =====
 arch-chroot "$AIROOTFS" pacman -S $INSTALL --noconfirm
 arch-chroot "$AIROOTFS" $CMD
+# ===== ユーザー作成 =====
+echo "[*] ユーザーを作成しています..."
+
+arch-chroot "$AIROOTFS" useradd -m -G wheel -s /bin/bash frank
+echo "frank:frank" | arch-chroot "$AIROOTFS" chpasswd
+
+
 
 mkdir -p "$ISO_ROOT/isolinux"
 cp /usr/lib/syslinux/bios/isolinux.bin "$ISO_ROOT/isolinux/"
