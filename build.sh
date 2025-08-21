@@ -79,7 +79,7 @@ AIROOTFS="$AIROOTFS_MOUNT"
 pacstrap  "$AIROOTFS" $PACKAGE
 
 # ===== 設定ファイル追加 =====
-
+arch-chroot "$AIROOTFS" source "./edition/minimal/set.sh"
 
 
 mkdir -p "$ISO_ROOT/isolinux"
