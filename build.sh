@@ -26,6 +26,8 @@ fi
 while getopts "e:" opt; do
   case "$opt" in
     e) ENVIRONMENT="$OPTARG" ;;
+    
+    
     \?) 
       echo "使い方: $0 [-e environment]"
       exit 1
@@ -35,24 +37,21 @@ done
 
 # 処理分岐
 case "$ENVIRONMENT" in
-  minimal)
-    echo "=== Minimal ビルドを開始 ==="
-      PACKAGES="./edition/minimal/packages"
-      SETUP="./edition/minimal/setup"
+ 
+  full)
+    echo "=== Full ビルドを開始 ==="
+    # Full 用のビルド処理
+    ;;
+  *)
+     echo "=== $ENVIRONMENT ビルドを開始 ==="
+      PACKAGES="./edition/$ENVIRONMENT/packages"
+      SETUP="./edition/$ENVIRONMENT/setup"
       if [[ -f "$PACKAGES" ]]; then
         source "$PACKAGES"
       else
         echo "設定ファイル $PACKAGES が見つかりません" >&2
       exit 1
       fi
-    ;;
-  full)
-    echo "=== Full ビルドを開始 ==="
-    # Full 用のビルド処理
-    ;;
-  *)
-    echo "不明な環境: $ENVIRONMENT"
-    exit 1
     ;;
 esac
 ST_FILE=$SETUP
