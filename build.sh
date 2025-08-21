@@ -87,7 +87,7 @@ mkdir -p "$AIROOTFS/etc/pacman.d"
 cp ./system/pacman/pacman.conf "$AIROOTFS/etc/"
 cp /etc/pacman.d/mirrorlist "$AIROOTFS/etc/pacman.d/"
 # ===== 設定ファイル追加 =====
-arch-chroot "$AIROOTFS" pacman -S $INSTALL
+arch-chroot "$AIROOTFS" pacman -S $INSTALL --noconfirm
 
 
 mkdir -p "$ISO_ROOT/isolinux"
