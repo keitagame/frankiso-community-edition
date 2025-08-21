@@ -128,30 +128,6 @@ mksquashfs "$AIROOTFS" "$ISO_ROOT/arch/$ARCH/airootfs.sfs"  -comp gzip
 # ===== ブートローダー構築 (systemd-boot UEFI) =====
 echo "[*] EFI ブートローダー準備..."
 # 1. EFI用FATイメージ作成
-dd if=/dev/zero of="$ISO_ROOT/efiboot.img" bs=1M count=200
-mkfs.vfat "$ISO_ROOT/efiboot.img"
-
-
-# 2. マウントしてファイルコピー
-mkdir mnt_esp
-
-
-# 2. マウントしてファイルコピー
-sudo mount "$ISO_ROOT/efiboot.img" mnt_esp
-
-mkdir -p mnt_esp/EFI/BOOT
-cp /usr/lib/systemd/boot/efi/systemd-bootx64.efi mnt_esp/EFI/BOOT/BOOTX64.EFI
-cp "$AIROOTFS/boot/vmlinuz-linux" mnt_esp/
-cp "$AIROOTFS/boot/initramfs-linux.img" mnt_esp/
-# loader.conf と arch.conf を配置
-mkdir -p mnt_esp/loader/entries
-cp ./systemd/loader.conf mnt_esp/loader/
-cp ./systemd/arch.conf mnt_esp/loader/entries/
-
-
-
-sudo umount -l mnt_esp
-rmdir mnt_esp
 
 # カーネルと initramfs を ISOルートにコピー
 cp "$AIROOTFS/boot/vmlinuz-linux" "$ISO_ROOT/"
