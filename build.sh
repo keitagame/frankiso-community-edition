@@ -55,7 +55,7 @@ case "$ENVIRONMENT" in
     exit 1
     ;;
 esac
-_STFILE=$SETUP
+ST_FILE=$SETUP
 if [[ -f "$ST_FILE" ]]; then
     source "$ST_FILE"
 else
