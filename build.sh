@@ -109,19 +109,19 @@ echo "[*] ユーザーを作成しています..."
 arch-chroot "$AIROOTFS" useradd -m -G wheel -s /bin/bash $NAME
 echo "$NAME:$NAME" | arch-chroot "$AIROOTFS" chpasswd
 if [ "$SUDO" = "true" ]; then
-
+  arch-chroot "$AIROOTFS" pacman -S sudo --noconfirm
+  echo "%wheel ALL=(ALL:ALL) ALL" >> "$AIROOTFS/etc/sudoers"
 fi
-arch-chroot "$AIROOTFS" pacman -S sudo --noconfirm
-echo "%wheel ALL=(ALL:ALL) ALL" >> "$AIROOTFS/etc/sudoers"
 
+if [ "$bios" = "isolinux" ]; then
 
-mkdir -p "$ISO_ROOT/isolinux"
-cp /usr/lib/syslinux/bios/isolinux.bin "$ISO_ROOT/isolinux/"
-cp /usr/lib/syslinux/bios/ldlinux.c32 "$ISO_ROOT/isolinux/"
-cp /usr/lib/syslinux/bios/menu.c32 "$ISO_ROOT/isolinux/"
-cp /usr/lib/syslinux/bios/libcom32.c32 "$ISO_ROOT/isolinux/"
-cp /usr/lib/syslinux/bios/libutil.c32 "$ISO_ROOT/isolinux/"
-
+  mkdir -p "$ISO_ROOT/isolinux"
+  cp /usr/lib/syslinux/bios/isolinux.bin "$ISO_ROOT/isolinux/"
+  cp /usr/lib/syslinux/bios/ldlinux.c32 "$ISO_ROOT/isolinux/"
+  cp /usr/lib/syslinux/bios/menu.c32 "$ISO_ROOT/isolinux/"
+  cp /usr/lib/syslinux/bios/libcom32.c32 "$ISO_ROOT/isolinux/"
+  cp /usr/lib/syslinux/bios/libutil.c32 "$ISO_ROOT/isolinux/"
+fi
 cat <<EOF > "$ISO_ROOT/isolinux/isolinux.cfg"
 UI menu.c32
 PROMPT 0
@@ -134,6 +134,9 @@ LABEL frankos
     INITRD /initramfs-linux.img
     APPEND archisobasedir=arch archisolabel=$ISO_LABEL
 EOF
+   
+
+
 
 
 mkdir -p "$ISO_ROOT/arch/$ARCH"
