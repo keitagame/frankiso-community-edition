@@ -128,7 +128,7 @@ mksquashfs "$AIROOTFS" "$ISO_ROOT/arch/$ARCH/airootfs.sfs"  -comp gzip
 # ===== ブートローダー構築 (systemd-boot UEFI) =====
 echo "[*] EFI ブートローダー準備..."
 # 1. EFI用FATイメージ作成
-
+source ./$efi/set.sh
 # カーネルと initramfs を ISOルートにコピー
 cp "$AIROOTFS/boot/vmlinuz-linux" "$ISO_ROOT/"
 cp "$AIROOTFS/boot/initramfs-linux.img" "$ISO_ROOT/"
