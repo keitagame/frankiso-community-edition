@@ -39,6 +39,7 @@ case "$ENVIRONMENT" in
   minimal)
     echo "=== Minimal ビルドを開始 ==="
       PACKAGES="./edition/minimal/packages"
+      SETUP="./edition/minimal/set.sh"
       if [[ -f "$PACKAGES" ]]; then
         source "$PACKAGES"
       else
