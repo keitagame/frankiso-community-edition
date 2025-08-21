@@ -212,7 +212,7 @@ LABEL frankos
     MENU LABEL Boot FrankOS Live (BIOS)
     LINUX /vmlinuz-linux
     INITRD /initramfs-linux.img
-    APPEND archisobasedir=arch archisolabel=FRANK_LIVE
+    APPEND archisobasedir=arch archisolabel=$ISO_LABEL
 EOF
 
 # 鍵の初期化
@@ -274,7 +274,7 @@ cat <<EOF | sudo tee mnt_esp/loader/entries/arch.conf
 title   FrankOS Live (${ISO_VERSION})
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
-options archisobasedir=arch archisolabel=FRANK_LIVE
+options archisobasedir=arch archisolabel=$ISO_LABEL
 EOF
 
 sudo umount -l mnt_esp
@@ -298,7 +298,7 @@ xorriso -as mkisofs \
   -boot-info-table \
   -iso-level 3 \
   -full-iso9660-filenames \
-  -volid FRANK_LIVE \
+  -volid $ISO_LABEL \
   -eltorito-alt-boot \
   -e efiboot.img \
   -no-emul-boot \
