@@ -113,16 +113,8 @@ if [ "$SUDO" = "true" ]; then
   echo "%wheel ALL=(ALL:ALL) ALL" >> "$AIROOTFS/etc/sudoers"
 fi
 source ./$bios/set.sh
-if [ "$bios" = "isolinux" ]; then
 
-  mkdir -p "$ISO_ROOT/isolinux"
-  cp /usr/lib/syslinux/bios/isolinux.bin "$ISO_ROOT/isolinux/"
-  cp /usr/lib/syslinux/bios/ldlinux.c32 "$ISO_ROOT/isolinux/"
-  cp /usr/lib/syslinux/bios/menu.c32 "$ISO_ROOT/isolinux/"
-  cp /usr/lib/syslinux/bios/libcom32.c32 "$ISO_ROOT/isolinux/"
-  cp /usr/lib/syslinux/bios/libutil.c32 "$ISO_ROOT/isolinux/"
-fi
-cp ./isolinux/isolinux.cfg "$ISO_ROOT/isolinux/isolinux.cfg"
+
 
    
 
