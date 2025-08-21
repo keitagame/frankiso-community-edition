@@ -112,7 +112,7 @@ if [ "$SUDO" = "true" ]; then
   arch-chroot "$AIROOTFS" pacman -S sudo --noconfirm
   echo "%wheel ALL=(ALL:ALL) ALL" >> "$AIROOTFS/etc/sudoers"
 fi
-
+source ./$bios/set.sh
 if [ "$bios" = "isolinux" ]; then
 
   mkdir -p "$ISO_ROOT/isolinux"
