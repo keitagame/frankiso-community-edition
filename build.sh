@@ -99,9 +99,13 @@ arch-chroot "$AIROOTFS" $CMD
 # ===== ユーザー作成 =====
 echo "[*] ユーザーを作成しています..."
 
-arch-chroot "$AIROOTFS" useradd -m -G wheel -s /bin/bash frank
-echo "frank:frank" | arch-chroot "$AIROOTFS" chpasswd
+arch-chroot "$AIROOTFS" useradd -m -G wheel -s /bin/bash $NAME
+echo "$NAME:$NAME" | arch-chroot "$AIROOTFS" chpasswd
+if [ "$SUDO" = "true" ]; then
 
+fi
+arch-chroot "$AIROOTFS" pacman -S sudo --noconfirm
+echo "%wheel ALL=(ALL:ALL) ALL" >> "$AIROOTFS/etc/sudoers"
 
 
 mkdir -p "$ISO_ROOT/isolinux"
