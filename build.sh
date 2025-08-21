@@ -135,19 +135,10 @@ cp "$AIROOTFS/boot/vmlinuz-linux" mnt_esp/
 cp "$AIROOTFS/boot/initramfs-linux.img" mnt_esp/
 # loader.conf と arch.conf を配置
 mkdir -p mnt_esp/loader/entries
-cat <<EOF | sudo tee mnt_esp/loader/loader.conf
-default  frank
-timeout  3
-console-mode max
-editor   no
-EOF
+cp ./systemd/loader.conf mnt_esp/loader/
+cp ./systemd/arch.conf mnt_esp/loader/entries/
 
-cat <<EOF | sudo tee mnt_esp/loader/entries/arch.conf
-title   FrankOS Live (${ISO_VERSION})
-linux   /vmlinuz-linux
-initrd  /initramfs-linux.img
-options archisobasedir=arch archisolabel=$ISO_LABEL
-EOF
+
 
 sudo umount -l mnt_esp
 rmdir mnt_esp
