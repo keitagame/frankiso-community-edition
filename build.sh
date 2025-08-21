@@ -122,18 +122,8 @@ if [ "$bios" = "isolinux" ]; then
   cp /usr/lib/syslinux/bios/libcom32.c32 "$ISO_ROOT/isolinux/"
   cp /usr/lib/syslinux/bios/libutil.c32 "$ISO_ROOT/isolinux/"
 fi
-cat <<EOF > "$ISO_ROOT/isolinux/isolinux.cfg"
-UI menu.c32
-PROMPT 0
-TIMEOUT 50
-DEFAULT frankos
+cp ./isolinux/isolinux.cfg "$ISO_ROOT/isolinux/isolinux.cfg"
 
-LABEL frankos
-    MENU LABEL Boot FrankOS Live (BIOS)
-    LINUX /vmlinuz-linux
-    INITRD /initramfs-linux.img
-    APPEND archisobasedir=arch archisolabel=$ISO_LABEL
-EOF
    
 
 
