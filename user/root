@@ -1,3 +1,4 @@
+#liveユーザー名
 NAME="root"
 PASSWORD="root"
 SUDO="true"
